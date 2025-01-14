@@ -483,7 +483,9 @@ contract RankedBattle {
                     points = accumulatedPointsPerFighter[tokenId][roundId];
                 }
                 accumulatedPointsPerFighter[tokenId][roundId] -= points;
+                // @audit 
                 accumulatedPointsPerAddress[fighterOwner][roundId] -= points;
+                // 
                 totalAccumulatedPoints[roundId] -= points;
                 if (points > 0) {
                     emit PointsChanged(tokenId, points, false);

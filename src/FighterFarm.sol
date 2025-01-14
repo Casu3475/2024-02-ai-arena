@@ -335,6 +335,8 @@ contract FighterFarm is ERC721, ERC721Enumerable {
     /// @param from Address of the current owner.
     /// @param to Address of the new owner.
     /// @param tokenId ID of the fighter being transferred.
+
+    // @audit
     function transferFrom(
         address from, 
         address to, 
@@ -343,7 +345,7 @@ contract FighterFarm is ERC721, ERC721Enumerable {
         public 
         override(ERC721, IERC721)
     {
-        require(_ableToTransfer(tokenId, to));
+        require(_ableToTransfer(tokenId, to)); // ok but look at the inheritance ERC721
         _transfer(from, to, tokenId);
     }
 
@@ -352,6 +354,8 @@ contract FighterFarm is ERC721, ERC721Enumerable {
     /// @param from Address of the current owner.
     /// @param to Address of the new owner.
     /// @param tokenId ID of the fighter being transferred.
+
+    // @audit
     function safeTransferFrom(
         address from, 
         address to, 
@@ -360,7 +364,7 @@ contract FighterFarm is ERC721, ERC721Enumerable {
         public 
         override(ERC721, IERC721)
     {
-        require(_ableToTransfer(tokenId, to));
+        require(_ableToTransfer(tokenId, to)); // ok but look at the inheritance ERC721
         _safeTransfer(from, to, tokenId, "");
     }
 

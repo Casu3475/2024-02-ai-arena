@@ -101,7 +101,9 @@ contract StakeAtRisk {
         if (success) {
             stakeAtRisk[roundId][fighterId] -= nrnToReclaim;
             totalStakeAtRisk[roundId] -= nrnToReclaim;
+            // @audit
             amountLost[fighterOwner] -= nrnToReclaim;
+            //
             emit ReclaimedStake(fighterId, nrnToReclaim);
         }
     }
