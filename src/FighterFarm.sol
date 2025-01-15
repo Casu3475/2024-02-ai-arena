@@ -230,6 +230,7 @@ contract FighterFarm is ERC721, ERC721Enumerable {
     /// @param fighterTypes Array of fighter types corresponding to the fighters being minted.
     /// @param modelHashes Array of ML model hashes corresponding to the fighters being minted. 
     /// @param modelTypes Array of ML model types corresponding to the fighters being minted.
+    // @audit - Players have complete freedom to customize the fighter NFT when calling redeemMintPass and can redeem fighters of types Dendroid and with rare attributes
     function redeemMintPass(
         uint256[] calldata mintpassIdsToBurn,
         uint8[] calldata fighterTypes,
@@ -371,6 +372,8 @@ contract FighterFarm is ERC721, ERC721Enumerable {
     /// @notice Rolls a new fighter with random traits.
     /// @param tokenId ID of the fighter being re-rolled.
     /// @param fighterType The fighter type.
+    // @audit you can reroll bypassing the maxRerollsAllowed & and reroll attributes based on a different fighterType
+
     function reRoll(uint8 tokenId, uint8 fighterType) public {
         require(msg.sender == ownerOf(tokenId));
         require(numRerolls[tokenId] < maxRerollsAllowed[fighterType]);
@@ -393,6 +396,13 @@ contract FighterFarm is ERC721, ERC721Enumerable {
             _tokenURIs[tokenId] = "";
         }
     }    
+
+    // ADD THIS : there is a bug that there is no way to set numElements, so add a numElements setter to FighterFarm. This bug has been submitted as a separate report.
+    function numElementsSetterForPoC(uint8 _generation, uint8 _newElementNum) public {
+        require(msg.sender == _ownerAddress);
+        require(_newElementNum > 0);
+        numElements[_generation] = _newElementNum;
+    }
 
     /// @notice Returns the URI where the contract metadata is stored.
     /// @return URI where the contract metadata is stored.

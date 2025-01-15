@@ -238,6 +238,7 @@ contract GameItemsTest is Test {
         assertEq(_gameItemsContract.balanceOf(_ownerAddress, 0), 0);
     }
 
+
     /*//////////////////////////////////////////////////////////////
                                HELPERS
     //////////////////////////////////////////////////////////////*/

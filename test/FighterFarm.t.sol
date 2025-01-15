@@ -384,25 +384,27 @@ contract FighterFarmTest is Test {
         assertEq(owner == _fighterFarmContract.ownerOf(0), true);
     }
 
-    /*//////////////////////////////////////////////////////////////
-                               HELPERS
-    //////////////////////////////////////////////////////////////*/
+        /*//////////////////////////////////////////////////////////////
+                                HELPERS
+        //////////////////////////////////////////////////////////////*/
 
-    /// @notice Helper function to mint an fighter nft to an address.
-    function _mintFromMergingPool(address to) internal {
-        vm.prank(address(_mergingPoolContract));
-        _fighterFarmContract.mintFromMergingPool(to, "_neuralNetHash", "original", [uint256(1), uint256(80)]);
-    }
+        /// @notice Helper function to mint an fighter nft to an address.
+        function _mintFromMergingPool(address to) internal {
+            vm.prank(address(_mergingPoolContract));
+            _fighterFarmContract.mintFromMergingPool(to, "_neuralNetHash", "original", [uint256(1), uint256(80)]);
+        }
 
-    /// @notice Helper function to fund an account with 4k $NRN tokens.
-    function _fundUserWith4kNeuronByTreasury(address user) internal {
-        vm.prank(_treasuryAddress);
-        _neuronContract.transfer(user, 4_000 * 10 ** 18);
-        assertEq(4_000 * 10 ** 18 == _neuronContract.balanceOf(user), true);
-    }
+        /// @notice Helper function to fund an account with 4k $NRN tokens.
+        function _fundUserWith4kNeuronByTreasury(address user) internal {
+            vm.prank(_treasuryAddress);
+            _neuronContract.transfer(user, 4_000 * 10 ** 18);
+            assertEq(4_000 * 10 ** 18 == _neuronContract.balanceOf(user), true);
+        }
 
-    function onERC721Received(address, address, uint256, bytes memory) public pure returns (bytes4) {
-        // Handle the token transfer here
-        return this.onERC721Received.selector;
-    }
+        function onERC721Received(address, address, uint256, bytes memory) public pure returns (bytes4) {
+            // Handle the token transfer here
+            return this.onERC721Received.selector;
+        }
 }
+
+
